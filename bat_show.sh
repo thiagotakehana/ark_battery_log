@@ -8,7 +8,7 @@ if [ "$(id -u)" -ne 0 ]; then
 fi
 
 CURR_TTY="/dev/tty1"
-APP_NAME="R36S System Info by Jason"
+APP_NAME="R36S Battery Log"
 
 printf "\033c" > "$CURR_TTY"
 printf "\e[?25l" > "$CURR_TTY"
@@ -254,6 +254,7 @@ ShowInfos() {
     local SD1_INFO=$(GetSDInfo "SD1" "/roms")
     local SD2_INFO=$(GetSDInfo "SD2" "/roms2")
     local BAT_INFO=$(tail -n 20 /roms/tools/bat_log.txt)
+    local BAT_STATUS=$(cat /sys/class/power_supply/battery/uevent)
 
     if [ -f /home/ark/.config/.VERSION ]; then
         read -r ARK_VERSION < /home/ark/.config/.VERSION
@@ -263,7 +264,9 @@ ShowInfos() {
 
     dialog --backtitle "$APP_NAME" --msgbox "\
     -------------------Battery----------------------
-  • Battery log info
+$BAT_STATUS
+
+---------------------Log------------------------
 $BAT_INFO
 
 " 25 51 > "$CURR_TTY"
