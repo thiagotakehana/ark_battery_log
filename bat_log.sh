@@ -20,6 +20,6 @@ HOURS=$((UPTIME_SECONDS / 3600))
 MINUTES=$(((UPTIME_SECONDS % 3600) / 60))
 SECONDS=$((UPTIME_SECONDS % 60))
 
-MSG="${DATENOW} - ${BAT_ICON} Bat: ${BAT_PERCENT}% Status: ${BAT_STATUS} Uptime:${HOURS}h ${MINUTES}m ${SECONDS}s"
+MSG="${DATENOW} - ${BAT_STATUS}\n${BAT_ICON} Bat: ${BAT_PERCENT}% Up:${HOURS}h ${MINUTES}m ${SECONDS}s"
 echo $MSG
 echo $MSG >> /roms/tools/bat_log.txt
